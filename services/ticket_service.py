@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session
 from models import Ticket
-import schema
+import schemas  # consistent with the rest of your code
 
-def create_ticket(db: Session, ticket_data: schema.TicketCreate):
+def create_ticket(db: Session, ticket_data: schemas.TicketCreate):
     ticket = Ticket(
-        seat_id=ticket_data.Seat_SeatNo[0],  # example logic
-        show_time_id=ticket_data.ShowTime_Play_PlayId,
-        customer_id=ticket_data.Customer_CustomerId
+        seat_id=ticket_data.seat_id,
+        show_time_id=ticket_data.show_time_id,
+        customer_id=ticket_data.customer_id
     )
     db.add(ticket)
     db.commit()
@@ -19,13 +19,12 @@ def get_all_tickets(db: Session, skip: int = 0, limit: int = 100):
 def get_ticket_by_id(db: Session, ticket_id: int):
     return db.query(Ticket).filter(Ticket.id == ticket_id).first()
 
-def update_ticket(db: Session, ticket_id: int, ticket_data: schema.TicketUpdate):
+def update_ticket(db: Session, ticket_id: int, ticket_data: schemas.TicketUpdate):
     ticket = get_ticket_by_id(db, ticket_id)
     if not ticket:
         return None
-    if ticket_data.TicketNo is not None:
-        # Just a placeholder for a field (depends on your real DB model)
-        pass
+    for key, value in ticket_data.model_dump(exclude_unset=True).items():
+        setattr(ticket, key, value)
     db.commit()
     db.refresh(ticket)
     return ticket
