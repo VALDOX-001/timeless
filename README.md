@@ -18,14 +18,14 @@ A full-featured RESTful API for managing theatre-related entities like plays, ac
 
 ## 📁 Project Structure
 
-app/ ├── main.py ├── models.py ├── schemas.py ├── database.py ├── routes/ │   ├── actorRoute.py │   ├── directorRoute.py │   ├── playRoute.py │   ├── customerRoute.py │   ├── showtimeRoute.py │   ├── seatRoute.py │   ├── ticketRoute.py │   ├── priceRoute.py │   └── auth.py ├── services/ │   └── [model.py]_service.py
+app/ ├── main.py ├── models.py ├── schemas.py ├── database.py ├── routes/ │   ├── actorRoute.py │   ├── directorRoute.py │   ├── playRoute.py │   ├── customerRoute.py │   ├── showtimeRoute.py │   ├── seatRoute.py │   ├── ticketRoute.py │   ├── priceRoute.py │   └── auth.py ├── services/ │   └── [model.py]_service.py ├── utils/ │advanced_feaures
 
 ---
 
 ## 🛠 Setup Instructions
 
 ### 1. Clone the Repository
-git clone https://github.com/your-username/sierra-leone-music-api.git
+git clone https://github.com/VALDOX-001/timeless.git
 cd sierra-leone-music-api
 
 ## 2. Create Virtual Environment
@@ -50,12 +50,6 @@ Visit: http://127.0.0.1:8000/docs to use the Swagger UI.
 Users must signup and login via /auth/signup and /auth/login
 
 JWT token is returned and must be used as a Bearer token
-
-Customers can only perform GET operations
-
-Admins have full access
-
-
 
 ---
 
@@ -100,7 +94,7 @@ FastAPI
 
 SQLAlchemy
 
-SQLite
+ POSTgresql
 
 Pydantic
 
