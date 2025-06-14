@@ -10,7 +10,7 @@ A full-featured RESTful API for managing theatre-related entities like plays, ac
 - 🕒 ShowTime & Seating arrangements
 - 🎫 Ticket & Pricing system
 - 🔐 User Authentication & Role-based Access (admin / customer)
-- 📦 SQLite + SQLAlchemy ORM
+- 📦 POSTgresql + SQLAlchemy ORM
 - ✅ Clean JSON output with relational previews
 - 📘 Interactive Swagger UI (/docs)
 
@@ -90,8 +90,6 @@ POST /auth/login – Login and get token
 
 GET /me – Get current user info
 
-GET /admin – Admin-only route
-
 
 
 ---
@@ -121,11 +119,11 @@ This API was created as part of a group project for Object-Oriented Programming 
 ## 👩‍💻 Group Members
 
 Adeola
+
 Princess
+
 Valentine
 
 
-
----
 
 Thank you for reviewing our work. We hope you enjoy using the Sierra Leone Music API! 🎧
