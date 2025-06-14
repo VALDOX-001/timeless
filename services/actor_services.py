@@ -28,8 +28,8 @@ def update_actor(db:Session, actor_id: int, actor_data: schemas.ActorUpdate):
     actor = get_actor_by_id(db, actor_id)
     if not actor:
         return None
-    for key, value in actor_data.model_dump():
-        setattr(actor, key, value)
+    for key, value in actor_data.model_dump().items():
+    setattr(actor, key, value)
     db.commit()
     db.refresh(actor)
     return actor
