@@ -51,6 +51,10 @@ Users must signup and login via /auth/signup and /auth/login
 
 JWT token is returned and must be used as a Bearer token
 
+customers can only get by id and search 
+
+ admins have full access
+
 ---
 
 ## 📌 Example JSON
