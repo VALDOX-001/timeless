@@ -23,7 +23,7 @@ def update_price(db: Session, price_id: int, price_data: schemas.PriceUpdate):
     price = get_price_by_id(db, price_id)
     if not price:
         return None
-    for key, value in price_data.model_dump():
+    for key, value in price_data.model_dump().items():
         setattr(price, key, value)
     db.commit()
     db.refresh(price)
