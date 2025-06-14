@@ -1,13 +1,11 @@
-# from fastapi import FastAPI
-# from fastapi.openapi.utils import get_openapi
-# from routes.auth import auth_router
-# from routes import actorRoute, directorRoute, priceRoute, seatRoute, ticketRoute, playRoute, customerRoute, showtimeRoute
-# from fastapi.middleware.cors import CORSMiddleware
-#
-#
-#
-# app = FastAPI()
-#
+from fastapi import FastAPI
+from fastapi.openapi.utils import get_openapi
+from routes.auth import auth_router
+from routes import actorRoute, directorRoute, priceRoute, seatRoute, ticketRoute, playRoute, customerRoute, showtimeRoute
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
 # app.add_middleware(
 #     CORSMiddleware,
 #     allow_origins=[""],
