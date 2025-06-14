@@ -18,36 +18,34 @@ A full-featured RESTful API for managing theatre-related entities like plays, ac
 
 ## 📁 Project Structure
 
-app/ ├── main.py ├── models.py ├── schemas.py ├── database.py ├── routes/ │   ├── actorRoute.py │   ├── directorRoute.py │   ├── playRoute.py │   ├── customerRoute.py │   ├── showtimeRoute.py │   ├── seatRoute.py │   ├── ticketRoute.py │   ├── priceRoute.py │   └── auth.py ├── services/ │   └── [model_name]_service.py
+app/ ├── main.py ├── models.py ├── schemas.py ├── database.py ├── routes/ │   ├── actorRoute.py │   ├── directorRoute.py │   ├── playRoute.py │   ├── customerRoute.py │   ├── showtimeRoute.py │   ├── seatRoute.py │   ├── ticketRoute.py │   ├── priceRoute.py │   └── auth.py ├── services/ │   └── [model.py]_service.py
 
 ---
 
 ## 🛠 Setup Instructions
 
 ### 1. Clone the Repository
-```bash
 git clone https://github.com/your-username/sierra-leone-music-api.git
 cd sierra-leone-music-api
 
-2. Create Virtual Environment
+## 2. Create Virtual Environment
 
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 
-3. Install Dependencies
+## 3. Install Dependencies
 
 pip install -r requirements.txt
 
-4. Run the Application
+## 4. Run the Application
 
 uvicorn main:app --reload
 
 Visit: http://127.0.0.1:8000/docs to use the Swagger UI.
 
-
 ---
 
-🔑 Authentication & Authorization
+## 🔑 Authentication & Authorization
 
 Users must signup and login via /auth/signup and /auth/login
 
@@ -61,7 +59,7 @@ Admins have full access
 
 ---
 
-📌 Example JSON
+## 📌 Example JSON
 
 Create Ticket
 
@@ -82,7 +80,7 @@ Create Actor
 
 ---
 
-🧪 Testing Endpoints
+## 🧪 Testing Endpoints
 
 GET /plays/ – List all plays
 
@@ -98,7 +96,7 @@ GET /admin – Admin-only route
 
 ---
 
-📌 Technologies Used
+## 📌 Technologies Used
 
 FastAPI
 
@@ -116,16 +114,14 @@ JWT / OAuth2
 
 ---
 
-📋 End Note
+## 📋 End Note
 
 This API was created as part of a group project for Object-Oriented Programming II at Limkokwing University. The focus was on real-world API design, data modeling, and secure role-based access control.
 
-👩‍💻 Group Members
+## 👩‍💻 Group Members
 
 Adeola
-
-Sarah Princess Okike
-
+Princess
 Valentine
 
 
