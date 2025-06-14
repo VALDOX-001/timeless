@@ -23,7 +23,7 @@ def update_director(db: Session, director_id: int, director_data: schemas.Direct
     director = get_director_by_id(db, director_id)
     if not director:
         return None
-    for key, value in director_data.model_dump():
+    for key, value in director_data.model_dump().items():
         setattr(director, key, value)
     db.commit()
     db.refresh(director)
