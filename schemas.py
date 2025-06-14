@@ -1,202 +1,173 @@
-from enum import Enum
 from pydantic import BaseModel, EmailStr
-from typing import Optional,List
+from typing import Optional, List
 from datetime import date, datetime
-
-
+from enum import Enum
 
 class UserRole(str, Enum):
     admin = "admin"
     customer = "customer"
 
+# --------------------------- USER ---------------------------
 
 class UserBase(BaseModel):
     username: str
     email: EmailStr
     role: UserRole = UserRole.customer
 
-
 class UserCreate(UserBase):
     password: str
 
+class UserUpdate(BaseModel):
+    username: Optional[str]
+    email: Optional[EmailStr]
+    role: Optional[UserRole]
+    password: Optional[str]
 
 class UserOut(UserBase):
     id: int
-    class Config:
-        orm_mode = True
+    class Config: orm_mode = True
 
+# --------------------------- ACTOR ---------------------------
 
 class ActorBase(BaseModel):
     name: str
-    gender: Optional[str] = None
-    date_of_birth: Optional[date] = None
-
+    gender: Optional[str]
+    date_of_birth: Optional[date]
 
 class ActorCreate(ActorBase):
     pass
 
-
 class ActorUpdate(BaseModel):
-    name: Optional[str] = None
-    gender: Optional[str] = None
-    date_of_birth: Optional[date] = None
-
-
+    name: Optional[str]
+    gender: Optional[str]
+    date_of_birth: Optional[date]
 
 class Actor(ActorBase):
     id: int
-
     class Config:
-        form_attributes = True
+        orm_mode = True
 
-
+# --------------------------- DIRECTOR ---------------------------
 
 class DirectorBase(BaseModel):
     name: str
-    date_of_birth: Optional[date] = None
-    citizenship: Optional[str] = None
-
-
+    date_of_birth: Optional[date]
+    citizenship: Optional[str]
 
 class DirectorCreate(DirectorBase):
     pass
 
-
-
 class DirectorUpdate(BaseModel):
-    name:  Optional[str] = None
-    date_of_birth: Optional[date] = None
-    citizenship: Optional[str] = None
-
-
+    name: Optional[str]
+    date_of_birth: Optional[date]
+    citizenship: Optional[str]
 
 class Director(DirectorBase):
     id: int
-
     class Config:
-        form_attributes = True
+        orm_mode = True
 
+# --------------------------- PLAY ---------------------------
 
 class PlayBase(BaseModel):
     title: str
     duration: int
     genre: str
-    synopsis: Optional[str] = None
+    synopsis: Optional[str]
     actor_id: int
     director_id: int
-
 
 class PlayCreate(PlayBase):
     pass
 
-
-
 class PlayUpdate(BaseModel):
-    title: Optional[str] = None
-    duration: Optional[int] = None
-    genre: Optional[str] = None
-    synopsis: Optional[str] = None
-    actor_id: Optional[int] = None
-    director_id: Optional[int] = None
-
+    title: Optional[str]
+    duration: Optional[int]
+    genre: Optional[str]
+    synopsis: Optional[str]
+    actor_id: Optional[int]
+    director_id: Optional[int]
 
 class Play(PlayBase):
     id: int
-
     class Config:
-        from_attributes = True
+        orm_mode = True
 
-
+# --------------------------- CUSTOMER ---------------------------
 
 class CustomerBase(BaseModel):
     name: str
     telephone: str
 
-
-
 class CustomerCreate(CustomerBase):
     pass
 
-
-
 class CustomerUpdate(BaseModel):
-    name: Optional[str] = None
-    telephone: Optional[str] = None
-
+    name: Optional[str]
+    telephone: Optional[str]
 
 class Customer(CustomerBase):
     id: int
-
     class Config:
-        from_attributes = True
+        orm_mode = True
 
+# --------------------------- SHOWTIME ---------------------------
 
 class ShowTimeBase(BaseModel):
     date_time: datetime
     play_id: int
 
-
-
 class ShowTimeCreate(ShowTimeBase):
     pass
 
-
-
 class ShowTimeUpdate(BaseModel):
-    date_time: datetime
-    play_id: int
+    date_time: Optional[datetime]
+    play_id: Optional[int]
 
 class ShowTime(ShowTimeBase):
     id: int
-
     class Config:
-        from_attributes = True
+        orm_mode = True
 
+# --------------------------- SEAT ---------------------------
 
 class SeatBase(BaseModel):
-    RowNo: int
-    SeatNo: int
+    row_number: int
+    seat_number: int
 
 class SeatCreate(SeatBase):
     pass
 
-
 class SeatUpdate(BaseModel):
-    RowNo: Optional[int]
-    SeatNo: Optional[int]
+    row_number: Optional[int]
+    seat_number: Optional[int]
 
 class Seat(SeatBase):
     id: int
-
     class Config:
-        from_attributes = True
+        orm_mode = True
 
-
+# --------------------------- TICKET ---------------------------
 
 class TicketBase(BaseModel):
-    TicketNo: str
-    ShowTime_Play_PlayId: int  # Still keep for creation
-    ShowTime_DateAndTime: datetime
-    Customer_CustomerId: int
-    Seat_RowNo: List[int]
-    Seat_SeatNo: List[int]
-
-
+    seat_id: int
+    show_time_id: int
+    customer_id: int
 
 class TicketCreate(TicketBase):
     pass
 
-
 class TicketUpdate(BaseModel):
-    TicketNo: Optional[str]
-
+    seat_id: Optional[int]
+    show_time_id: Optional[int]
+    customer_id: Optional[int]
 
 class Ticket(TicketBase):
-    id : int
-
+    id: int
     class Config:
-        from_attributes = True
+        orm_mode = True
 
+# --------------------------- PRICE ---------------------------
 
 class PriceBase(BaseModel):
     seat_id: int
@@ -206,59 +177,45 @@ class PriceBase(BaseModel):
 class PriceCreate(PriceBase):
     pass
 
-
 class PriceUpdate(BaseModel):
-    seat_id:  Optional[int] = None
-    show_time_id:  Optional[int] = None
-    price:  Optional[int] = None
-
+    seat_id: Optional[int]
+    show_time_id: Optional[int]
+    price: Optional[int]
 
 class Price(PriceBase):
     id: int
-
     class Config:
-        form_attributes = True
+        orm_mode = True
 
+# --------------------------- RELATIONS ---------------------------
 
-# Relationships
-class ActorWithRelations(ActorBase):
-    id: int
-    plays: List[Play]
-
-    class Config:
-        from_attributes = True
-
-
-class DirectorWithRelations(Director):
-    plays: List[Play]
-
-
-class PlayWithRelations(Play):
+class PlayWithDetails(Play):
     actor: Actor
     director: Director
-    show_times: List[ShowTime]
 
-
-class CustomerWithRelations(Customer):
-    tickets: List[Ticket]
-
-
-class ShowTimeWithRelations(ShowTime):
+class ShowTimeWithPlay(ShowTime):
     play: Play
+    tickets: List['Ticket']
+    prices: List['Price']
+
+class TicketWithDetails(Ticket):
+    seat: Seat
+    show_time: ShowTime
+    customer: Customer
+
+class SeatWithDetails(Seat):
     tickets: List[Ticket]
     prices: List[Price]
 
-
-class PriceWithRelations(Price):
+class PriceWithDetails(Price):
     seat: Seat
     show_time: ShowTime
 
+class ActorWithPlays(Actor):
+    plays: List[Play]
 
+class DirectorWithPlays(Director):
+    plays: List[Play]
 
-
-
-
-
-
-
-
+class CustomerWithTickets(Customer):
+    tickets: List[Ticket]
