@@ -7,8 +7,45 @@ class UserRole(str, Enum):
     admin = "admin"
     customer = "customer"
 
-# --------------------------- USER ---------------------------
+# PREVIEW SCHEMAS
+class SeatPreview(BaseModel):
+    id: int
+    row_number: int
+    seat_number: int
+    class Config:
+        orm_mode = True
 
+class ShowTimePreview(BaseModel):
+    id: int
+    date_time: datetime
+    class Config:
+        orm_mode = True
+
+class CustomerPreview(BaseModel):
+    id: int
+    name: str
+    class Config:
+        orm_mode = True
+
+class PlayPreview(BaseModel):
+    id: int
+    title: str
+    class Config:
+        orm_mode = True
+
+class ActorPreview(BaseModel):
+    id: int
+    name: str
+    class Config:
+        orm_mode = True
+
+class DirectorPreview(BaseModel):
+    id: int
+    name: str
+    class Config: orm_mode = True
+
+
+# USER
 class UserBase(BaseModel):
     username: str
     email: EmailStr
@@ -25,10 +62,10 @@ class UserUpdate(BaseModel):
 
 class UserOut(UserBase):
     id: int
-    class Config: orm_mode = True
+    class Config:
+        orm_mode = True
 
-# --------------------------- ACTOR ---------------------------
-
+# ACTOR
 class ActorBase(BaseModel):
     name: str
     gender: Optional[str]
@@ -47,7 +84,7 @@ class Actor(ActorBase):
     class Config:
         orm_mode = True
 
-# --------------------------- DIRECTOR ---------------------------
+# DIRECTOR
 
 class DirectorBase(BaseModel):
     name: str
@@ -67,7 +104,7 @@ class Director(DirectorBase):
     class Config:
         orm_mode = True
 
-# --------------------------- PLAY ---------------------------
+# PLAY
 
 class PlayBase(BaseModel):
     title: str
@@ -93,7 +130,7 @@ class Play(PlayBase):
     class Config:
         orm_mode = True
 
-# --------------------------- CUSTOMER ---------------------------
+# CUSTOMER
 
 class CustomerBase(BaseModel):
     name: str
@@ -111,7 +148,7 @@ class Customer(CustomerBase):
     class Config:
         orm_mode = True
 
-# --------------------------- SHOWTIME ---------------------------
+# SHOWTIME
 
 class ShowTimeBase(BaseModel):
     date_time: datetime
@@ -129,7 +166,7 @@ class ShowTime(ShowTimeBase):
     class Config:
         orm_mode = True
 
-# --------------------------- SEAT ---------------------------
+# SEAT
 
 class SeatBase(BaseModel):
     row_number: int
@@ -147,7 +184,7 @@ class Seat(SeatBase):
     class Config:
         orm_mode = True
 
-# --------------------------- TICKET ---------------------------
+# TICKET
 
 class TicketBase(BaseModel):
     seat_id: int
@@ -164,10 +201,9 @@ class TicketUpdate(BaseModel):
 
 class Ticket(TicketBase):
     id: int
-    class Config:
-        orm_mode = True
+    class Config: orm_mode = True
 
-# --------------------------- PRICE ---------------------------
+# PRICE
 
 class PriceBase(BaseModel):
     seat_id: int
@@ -187,35 +223,35 @@ class Price(PriceBase):
     class Config:
         orm_mode = True
 
-# --------------------------- RELATIONS ---------------------------
+# RELATIONS
 
 class PlayWithDetails(Play):
-    actor: Actor
-    director: Director
+    actor: ActorPreview
+    director: DirectorPreview
 
 class ShowTimeWithPlay(ShowTime):
-    play: Play
+    play: PlayPreview
     tickets: List['Ticket']
     prices: List['Price']
 
 class TicketWithDetails(Ticket):
-    seat: Seat
-    show_time: ShowTime
-    customer: Customer
+    seat: SeatPreview
+    show_time: ShowTimePreview
+    customer: CustomerPreview
 
 class SeatWithDetails(Seat):
     tickets: List[Ticket]
     prices: List[Price]
 
 class PriceWithDetails(Price):
-    seat: Seat
-    show_time: ShowTime
+    seat: SeatPreview
+    show_time: ShowTimePreview
 
 class ActorWithPlays(Actor):
-    plays: List[Play]
+    plays: List[PlayPreview]
 
 class DirectorWithPlays(Director):
-    plays: List[Play]
+    plays: List[PlayPreview]
 
 class CustomerWithTickets(Customer):
     tickets: List[Ticket]
