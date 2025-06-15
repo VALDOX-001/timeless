@@ -14,6 +14,6 @@ def customer_only(current_user: User = Depends(get_current_user)):
     if current_user.role != UserRole.customer:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Customer access only"
+            detail="you have to be a customer"
         )
     return current_user
