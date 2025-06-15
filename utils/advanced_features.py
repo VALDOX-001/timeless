@@ -38,7 +38,7 @@ def search_plays(db: Session, keyword: str = "", skip: int = 0, limit: int = 10)
 def search_tickets(db: Session, keyword: str = "", skip: int = 0, limit: int = 10):
     return db.query(Ticket).join(Customer).join(ShowTime).filter(
         or_(
-            Ticket.TicketNo.ilike(f"%{keyword}%"),
+            Ticket.id.ilike(f"%{keyword}%"),
             Customer.name.ilike(f"%{keyword}%")
         )
     ).offset(skip).limit(limit).all()
@@ -59,8 +59,7 @@ def search_customers(db: Session, keyword: str = "", skip: int = 0, limit: int =
     return db.query(Customer).filter(
         or_(
             Customer.name.ilike(f"%{keyword}%"),
-            Customer.gender.ilike(f"%{keyword}%"),
-            Customer.email.ilike(f"%{keyword}%")
+            Customer.id.ilike(f"%{keyword}%")
         )
     ).offset(skip).limit(limit).all()
 
@@ -79,7 +78,7 @@ def search_showtimes(db: Session, keyword: str = "", skip: int = 0, limit: int =
 def search_prices(db: Session, keyword: str = "", skip: int = 0, limit: int = 10):
     return db.query(Price).filter(
         or_(
-            Price.category.ilike(f"%{keyword}%"),
-            Price.amount.cast(String).ilike(f"%{keyword}%")
+            Price.seat_id.ilike(f"%{keyword}%"),
+            Price.price.cast(String).ilike(f"%{keyword}%")
         )
     ).offset(skip).limit(limit).all()

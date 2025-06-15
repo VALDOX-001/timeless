@@ -1,33 +1,38 @@
 from sqlalchemy.orm import Session
 from models import Director
+import traceback
 import schemas
 
 def create_director(db: Session, director_data: schemas.DirectorCreate):
-    directors = Director(
-        name=director_data.name,
-        date_of_birth=director_data.date_of_birth,
-        citizenship=director_data.citizenship
-    )
-    db.add(directors)
+    director = Director(**director_data.model_dump())
+    db.add(director)
     db.commit()
-    db.refresh(directors)
-    return directors
+    db.refresh(director)
+    return director
 
-def get_directors(skip: int, limit: int, db: Session):
+def get_directors(db: Session, skip: int = 0, limit: int = 10):
     return db.query(Director).offset(skip).limit(limit).all()
 
 def get_director_by_id(db: Session, director_id: int):
     return db.query(Director).filter(Director.id == director_id).first()
 
 def update_director(db: Session, director_id: int, director_data: schemas.DirectorUpdate):
-    director = get_director_by_id(db, director_id)
-    if not director:
+    try:
+        director = get_director_by_id(db, director_id)
+        if not director:
+            return None
+        for key, value in director_data.model_dump(exclude_unset=True).items():
+            setattr(director, key, value)
+            db.commit()
+            db.refresh(director)
+            return director
+
+    except Exception:
+        traceback.print_exc()
+        db.rollback()
         return None
-    for key, value in director_data.model_dump():
-        setattr(director, key, value)
-    db.commit()
-    db.refresh(director)
-    return director
+
+
 
 def delete_director(db: Session, director_id: int):
     director = get_director_by_id(db, director_id)
