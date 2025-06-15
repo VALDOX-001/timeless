@@ -30,7 +30,15 @@ def update_price(db: Session, price_id: int, price_data: schemas.PriceUpdate):
         traceback.print_exc()
         db.rollback()
         return None
+<<<<<<< HEAD:Services/price_services.py
 
+=======
+    for key, value in price_data.model_dump().items():
+        setattr(price, key, value)
+    db.commit()
+    db.refresh(price)
+    return price
+>>>>>>> e038b47b3e33613ad5f25374d83882acc461646c:services/price_services.py
 
 def delete_price(db: Session, price_id: int):
     price = get_price_by_id(db, price_id)

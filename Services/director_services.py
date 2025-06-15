@@ -31,8 +31,16 @@ def update_director(db: Session, director_id: int, director_data: schemas.Direct
         traceback.print_exc()
         db.rollback()
         return None
+<<<<<<< HEAD:Services/director_services.py
 
 
+=======
+    for key, value in director_data.model_dump().items():
+        setattr(director, key, value)
+    db.commit()
+    db.refresh(director)
+    return director
+>>>>>>> e038b47b3e33613ad5f25374d83882acc461646c:services/director_services.py
 
 def delete_director(db: Session, director_id: int):
     director = get_director_by_id(db, director_id)
