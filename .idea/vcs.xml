@@ -2,5 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+<<<<<<< HEAD
+=======
+    <mapping directory="$PROJECT_DIR$/timeless" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/timeless/timeless" vcs="Git" />
+>>>>>>> 2f9bdd5a54a22e8648b053429093a7f3f9f4062d
   </component>
 </project>
