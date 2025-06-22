@@ -12,6 +12,7 @@ class SeatPreview(BaseModel):
     id: int
     row_number: int
     seat_number: int
+
     class Config:
         orm_mode = True
 
@@ -24,25 +25,30 @@ class ShowTimePreview(BaseModel):
 class CustomerPreview(BaseModel):
     id: int
     name: str
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 class PlayPreview(BaseModel):
     id: int
     title: str
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 class ActorPreview(BaseModel):
     id: int
     name: str
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 class DirectorPreview(BaseModel):
     id: int
     name: str
-    class Config: orm_mode = True
+
+    class Config:
+        form_attribute = True
 
 
 # USER
@@ -62,8 +68,9 @@ class UserUpdate(BaseModel):
 
 class UserOut(UserBase):
     id: int
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 # ACTOR
 class ActorBase(BaseModel):
@@ -81,8 +88,9 @@ class ActorUpdate(BaseModel):
 
 class Actor(ActorBase):
     id: int
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 # DIRECTOR
 
@@ -101,8 +109,9 @@ class DirectorUpdate(BaseModel):
 
 class Director(DirectorBase):
     id: int
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 # PLAY
 
@@ -127,8 +136,9 @@ class PlayUpdate(BaseModel):
 
 class Play(PlayBase):
     id: int
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 # CUSTOMER
 
@@ -145,8 +155,9 @@ class CustomerUpdate(BaseModel):
 
 class Customer(CustomerBase):
     id: int
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 # SHOWTIME
 
@@ -163,8 +174,9 @@ class ShowTimeUpdate(BaseModel):
 
 class ShowTime(ShowTimeBase):
     id: int
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 # SEAT
 
@@ -181,9 +193,9 @@ class SeatUpdate(BaseModel):
 
 class Seat(SeatBase):
     id: int
-    class Config:
-        orm_mode = True
 
+    class Config:
+        form_attribute = True
 # TICKET
 
 class TicketBase(BaseModel):
@@ -201,7 +213,9 @@ class TicketUpdate(BaseModel):
 
 class Ticket(TicketBase):
     id: int
-    class Config: orm_mode = True
+
+    class Config:
+        form_attribute = True
 
 # PRICE
 
@@ -220,8 +234,9 @@ class PriceUpdate(BaseModel):
 
 class Price(PriceBase):
     id: int
+
     class Config:
-        orm_mode = True
+        form_attribute = True
 
 # RELATIONS
 
