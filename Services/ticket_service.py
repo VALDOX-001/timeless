@@ -25,7 +25,7 @@ def update_ticket(db: Session, ticket_id: int, ticket_data: schemas.TicketUpdate
             setattr(ticket, key, value)
             db.commit()
             db.refresh(ticket)
-            return ticket
+        return ticket
     except Exception:
         traceback.print_exc()
         db.rollback()

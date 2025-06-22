@@ -25,7 +25,7 @@ def update_showtime(db: Session, showtime_id: int, showtime_data: schemas.ShowTi
             setattr(showtime, key, value)
             db.commit()
             db.refresh(showtime)
-            return showtime
+        return showtime
     except Exception:
         traceback.print_exc()
         db.rollback()

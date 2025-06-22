@@ -25,7 +25,7 @@ def update_director(db: Session, director_id: int, director_data: schemas.Direct
             setattr(director, key, value)
             db.commit()
             db.refresh(director)
-            return director
+        return director
 
     except Exception:
         traceback.print_exc()

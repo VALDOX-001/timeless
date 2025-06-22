@@ -25,7 +25,7 @@ def update_seat(db: Session, seat_id: int, seat_data: schemas.SeatUpdate):
             setattr(seat, key, value)
             db.commit()
             db.refresh(seat)
-            return seat
+        return seat
     except Exception:
         traceback.print_exc()
         db.rollback()

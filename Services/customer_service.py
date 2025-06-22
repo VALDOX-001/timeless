@@ -25,7 +25,7 @@ def update_customer(db: Session, customer_id: int, customer_data: schemas.Custom
             setattr(customer, key, value)
             db.commit()
             db.refresh(customer)
-            return customer
+        return customer
 
     except Exception:
         traceback.print_exc()

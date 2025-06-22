@@ -25,7 +25,7 @@ def update_price(db: Session, price_id: int, price_data: schemas.PriceUpdate):
             setattr(price, key, value)
             db.commit()
             db.refresh(price)
-            return price
+        return price
     except Exception:
         traceback.print_exc()
         db.rollback()
